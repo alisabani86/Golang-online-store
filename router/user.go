@@ -1,27 +1,15 @@
-package user
+package router
 
 import (
 	"net/http"
-	"server/internal/middleware"
+	"server/internal/presentation"
 
 	"github.com/gin-gonic/gin"
 )
 
-type Handler struct {
-	Service
-	middleware.Middleware
-}
-
-func NewHandler(s Service, m middleware.Middleware) *Handler {
-	return &Handler{
-		Service:    s,
-		Middleware: m,
-	}
-}
-
 func (h *Handler) CreateUser(ctx *gin.Context) {
 
-	var u CreateUserRequest
+	var u presentation.CreateUserRequest
 	if err := ctx.ShouldBindJSON(&u); err != nil {
 		ctx.JSON(400, gin.H{"error": err.Error()})
 		return
@@ -38,19 +26,19 @@ func (h *Handler) CreateUser(ctx *gin.Context) {
 
 func (h *Handler) Login(ctx *gin.Context) {
 
-	var user LoginUserRequest
-	if err := ctx.ShouldBindJSON(&user); err != nil {
+	var userreq presentation.LoginUserRequest
+	if err := ctx.ShouldBindJSON(&userreq); err != nil {
 		ctx.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	u, err := h.Service.Login(ctx.Request.Context(), &user)
+	u, err := h.Service.Login(ctx.Request.Context(), &userreq)
 	if err != nil {
 		ctx.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
 
 	ctx.SetCookie("jwt", u.AccesToken, 3600, "/", "localhost", false, true)
-	res := &LoginUserResponse{
+	res := &presentation.LoginUserResponse{
 		Username: u.Username,
 		ID:       u.ID,
 	}

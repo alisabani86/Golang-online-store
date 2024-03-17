@@ -1,20 +1,19 @@
 package router
 
 import (
-	"server/internal/user"
-
 	"github.com/gin-gonic/gin"
 )
 
 var r *gin.Engine
 
-func InitRouter(userHandler *user.Handler) {
+func InitRouter(Handler *Handler) {
 	r = gin.Default()
 
-	r.POST("/signup", userHandler.CreateUser)
-	r.POST("/login", userHandler.Login)
-	r.GET("/logout", userHandler.Logout)
-	r.GET("/tes", userHandler.GetCookie)
+	r.POST("/signup", Handler.CreateUser)
+	r.POST("/login", Handler.Login)
+	r.GET("/logout", Handler.Logout)
+	r.GET("/tes", Handler.GetCookie)
+	r.GET("/getproductbycategory", Handler.GetProduct)
 }
 
 func Start(addr string) error {
