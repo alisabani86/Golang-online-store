@@ -10,10 +10,10 @@ postgres:
 createdb:
 	docker exec -it postgres15 createdb --username=ROOT --owner=ROOT online-store
 dropdb:
-	docker exec -it postgres15 dropdb
-migrateup:
+	docker exec -it postgres15 dropdb --username=ROOT online-store
+migrate-up:
 	migrate -path db/migrations -database "postgresql://ROOT:password@localhost:5433/online-store?sslmode=disable" -verbose up
-migratedown:
+migrate-down:
 	migrate -path db/migrations -database "postgresql://ROOT:password@localhost:5433/online-store?sslmode=disable" -verbose down
 
 
