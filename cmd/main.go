@@ -4,8 +4,10 @@ import (
 	"log"
 	"server/db"
 	"server/internal/middleware"
-	"server/internal/user"
-	"server/router"
+	"server/internal/repository"
+	"server/internal/service"
+
+	router "server/router"
 )
 
 func main() {
@@ -15,11 +17,14 @@ func main() {
 	}
 
 	middleware := middleware.NewMiddleware()
-	userRep := user.NewRepository(dbConn.GetDB())
-	userSvc := user.NewService(userRep, middleware)
-	userHandler := user.NewHandler(userSvc, middleware)
 
-	router.InitRouter(userHandler)
+	Svc := service.NewService(
+		repository.NewRepository(dbConn.GetDB()),
+		middleware,
+	)
+	Handler := router.NewHandler(Svc, middleware)
+
+	router.InitRouter(Handler)
 	router.Start("0.0.0.0:8080")
 
 }

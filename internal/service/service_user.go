@@ -1,31 +1,16 @@
-package user
+package service
 
 import (
 	"context"
-
 	"server/internal/middleware"
+	"server/internal/presentation"
 	"server/util"
 	"strconv"
-	"time"
 
 	"github.com/golang-jwt/jwt/v4"
 )
 
-type service struct {
-	Repository
-	timout time.Duration
-	middleware.Middleware
-}
-
-func NewService(repository Repository, middleware middleware.Middleware) Service {
-	return &service{
-		repository,
-		time.Duration(2) * time.Second,
-		middleware,
-	}
-}
-
-func (s *service) CreateUser(ctx context.Context, req *CreateUserRequest) (*CreateUserResponse, error) {
+func (s *service) CreateUser(ctx context.Context, req *presentation.CreateUserRequest) (*presentation.CreateUserResponse, error) {
 
 	ctx, cancel := context.WithTimeout(ctx, s.timout)
 
@@ -35,7 +20,7 @@ func (s *service) CreateUser(ctx context.Context, req *CreateUserRequest) (*Crea
 		return nil, err
 	}
 
-	u := &User{
+	u := &presentation.User{
 		Username: req.Username,
 		Email:    req.Email,
 		Password: hashedPassword,
@@ -47,7 +32,7 @@ func (s *service) CreateUser(ctx context.Context, req *CreateUserRequest) (*Crea
 		return nil, err
 	}
 
-	res := &CreateUserResponse{
+	res := &presentation.CreateUserResponse{
 		ID:       strconv.Itoa(int(r.ID)),
 		Username: r.Username,
 		Email:    r.Email,
@@ -62,7 +47,7 @@ type JWTClaims struct {
 	jwt.RegisteredClaims
 }
 
-func (s *service) Login(ctx context.Context, req *LoginUserRequest) (*LoginUserResponse, error) {
+func (s *service) Login(ctx context.Context, req *presentation.LoginUserRequest) (*presentation.LoginUserResponse, error) {
 	ctx, cancel := context.WithTimeout(ctx, s.timout)
 
 	defer cancel()
@@ -74,13 +59,13 @@ func (s *service) Login(ctx context.Context, req *LoginUserRequest) (*LoginUserR
 
 	err = util.CheckPassword(req.Password, u.Password)
 	if err != nil {
-		return &LoginUserResponse{}, err
+		return &presentation.LoginUserResponse{}, err
 	}
 
 	// Replace with actual user data
 	token, err := s.Middleware.GenerateToken(middleware.User{ID: int(u.ID), Username: u.Username})
 
-	return &LoginUserResponse{
+	return &presentation.LoginUserResponse{
 			AccesToken: token,
 			Username:   u.Username,
 			ID:         strconv.Itoa(int(u.ID))},

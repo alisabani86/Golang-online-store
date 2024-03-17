@@ -1,4 +1,4 @@
-package user
+package presentation
 
 import "context"
 
@@ -35,9 +35,4 @@ type LoginUserResponse struct {
 type Repository interface {
 	CreateUser(ctx context.Context, user *User) (*User, error)
 	GetUserByEmail(ctx context.Context, email string) (*User, error)
-}
-
-type Service interface {
-	CreateUser(ctx context.Context, req *CreateUserRequest) (*CreateUserResponse, error)
-	Login(ctx context.Context, req *LoginUserRequest) (*LoginUserResponse, error)
 }
