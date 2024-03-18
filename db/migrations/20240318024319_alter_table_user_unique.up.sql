@@ -1,0 +1,2 @@
+ALTER TABLE users
+ADD CONSTRAINT userid UNIQUE (id);

@@ -45,21 +45,21 @@ func (h *Handler) Login(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, res)
 }
 
-func (h *Handler) GetCookie(ctx *gin.Context) {
+func (h *Handler) GetCookie(ctx *gin.Context) string {
 
 	jwtCookie, err := ctx.Cookie("jwt")
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{"error": "session not found"})
-		return
+		return ""
 	}
 	claim, err := h.Middleware.VerifyJWTToken(jwtCookie)
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
-		return
+		return ""
 	}
-	print(claim)
 
 	ctx.JSON(http.StatusOK, gin.H{"jwt": claim})
+	return claim.ID
 }
 
 func (h *Handler) Logout(ctx *gin.Context) {
