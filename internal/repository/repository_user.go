@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"math/rand"
 	"server/internal/presentation"
 )
 
@@ -17,6 +18,14 @@ func (r *repository) CreateUser(ctx context.Context, user *presentation.User) (*
 	}
 
 	user.ID = int64(lastInsertId)
+
+	query = "INSERT INTO accounts(id, user_id, account_number,balance) VALUES ($1, $2, $3)"
+
+	_, err = r.db.ExecContext(ctx, query, rand.Intn(100), user.ID, "1234243", 5000)
+	if err != nil {
+		return &presentation.User{}, err
+	}
+
 	return user, nil
 }
 
@@ -32,5 +41,3 @@ func (r *repository) GetUserByEmail(ctx context.Context, email string) (*present
 	return &u, nil
 
 }
-
-

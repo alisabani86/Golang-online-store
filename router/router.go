@@ -16,6 +16,7 @@ func InitRouter(Handler *Handler) {
 	r.GET("/addcart", Handler.AddShopingCart)
 	r.GET("/getcart", Handler.GetListCart)
 	r.GET("/delete", Handler.DeleteCart)
+	r.GET("/checkout", Handler.checkout)
 }
 
 func Start(addr string) error {
