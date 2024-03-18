@@ -32,3 +32,5 @@ func (r *repository) GetUserByEmail(ctx context.Context, email string) (*present
 	return &u, nil
 
 }
+
+

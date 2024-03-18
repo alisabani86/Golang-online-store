@@ -12,8 +12,10 @@ func InitRouter(Handler *Handler) {
 	r.POST("/signup", Handler.CreateUser)
 	r.POST("/login", Handler.Login)
 	r.GET("/logout", Handler.Logout)
-	r.GET("/tes", Handler.GetCookie)
 	r.GET("/getproductbycategory", Handler.GetProduct)
+	r.GET("/addcart", Handler.AddShopingCart)
+	r.GET("/getcart", Handler.GetListCart)
+	r.GET("/delete", Handler.DeleteCart)
 }
 
 func Start(addr string) error {
