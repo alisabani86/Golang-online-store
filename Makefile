@@ -1,6 +1,6 @@
 
 run:
-	@go run cmd/main.go
+	@go run main.go
 
 postgresinit:
 	docker run --name postgres15 -p 5433:5432 -e POSTGRES_USER=ROOT -e POSTGRES_PASSWORD=password -d postgres:15-alpine
