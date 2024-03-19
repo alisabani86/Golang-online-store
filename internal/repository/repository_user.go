@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 	"math/rand"
-	"server/internal/presentation"
+	"online_store/internal/presentation"
 )
 
 func (r *repository) CreateUser(ctx context.Context, user *presentation.User) (*presentation.User, error) {

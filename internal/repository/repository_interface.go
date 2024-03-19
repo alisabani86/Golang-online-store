@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"server/internal/presentation"
+	"online_store/internal/presentation"
 )
 
 type Repository interface {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 	"math/rand"
-	"server/internal/presentation"
+	"online_store/internal/presentation"
 	"time"
 )
 

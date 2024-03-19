@@ -8,6 +8,9 @@ var r *gin.Engine
 
 func InitRouter(Handler *Handler) {
 	r = gin.Default()
+	r.GET("/ping", func(req *gin.Context) {
+		req.JSON(200, gin.H{"message": "pong"})
+	})
 
 	r.POST("/signup", Handler.CreateUser)
 	r.POST("/login", Handler.Login)

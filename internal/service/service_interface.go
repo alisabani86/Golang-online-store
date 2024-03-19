@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"server/internal/presentation"
+	"online_store/internal/presentation"
 )
 
 type Service interface {

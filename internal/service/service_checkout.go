@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"server/internal/presentation"
+	"online_store/internal/presentation"
 )
 
 func (t *service) GetTotalPrice(ctx context.Context, id int) (int, error) {

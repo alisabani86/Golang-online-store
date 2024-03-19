@@ -3,6 +3,9 @@ package pkg
 import (
 	"context"
 	"fmt"
+	"log"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/go-redis/redis/v8"
@@ -18,13 +21,21 @@ const (
 
 func NewClient() *Conn {
 
+	REDIS_ADDR := os.Getenv("REDIS_ADDR")
+	REDIS_PASSWORD := os.Getenv("REDIS_PASSWORD")
+	REDIS_DBstr := os.Getenv("REDIS_DB")
+	REDIS_DB, err := strconv.Atoi(REDIS_DBstr)
+	if err != nil {
+		log.Fatal("Error converting REDIS_DB to an integer:", err)
+	}
+
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379", // Redis server address
-		Password: "",               // No password
-		DB:       0,                // Default database
+		Addr:     REDIS_ADDR,     //"localhost:6379", // Redis server address
+		Password: REDIS_PASSWORD, // No password
+		DB:       REDIS_DB,       // Default database
 	})
 
-	_, err := rdb.Ping(context.Background()).Result()
+	_, err = rdb.Ping(context.Background()).Result()
 	if err != nil {
 		// panic(errors.Wrap(err, "redis connection"))
 	}

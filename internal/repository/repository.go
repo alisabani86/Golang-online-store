@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"server/db"
+	"online_store/db"
 )
 
 type repository struct {

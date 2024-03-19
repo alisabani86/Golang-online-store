@@ -1,8 +1,8 @@
 package service
 
 import (
-	"server/internal/middleware"
-	"server/internal/repository"
+	"online_store/internal/middleware"
+	"online_store/internal/repository"
 	"time"
 )
 

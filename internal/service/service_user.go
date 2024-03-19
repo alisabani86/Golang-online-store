@@ -2,9 +2,9 @@ package service
 
 import (
 	"context"
-	"server/internal/middleware"
-	"server/internal/presentation"
-	"server/util"
+	"online_store/internal/middleware"
+	"online_store/internal/presentation"
+	"online_store/util"
 	"strconv"
 
 	"github.com/golang-jwt/jwt/v4"
