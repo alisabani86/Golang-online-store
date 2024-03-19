@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"server/db"
+	"online_store/db"
 )
 
 func seedProducts(ctx context.Context, db *db.Database) error {

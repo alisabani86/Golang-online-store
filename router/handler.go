@@ -1,8 +1,8 @@
 package router
 
 import (
-	"server/internal/middleware"
-	"server/internal/service"
+	"online_store/internal/middleware"
+	"online_store/internal/service"
 )
 
 type Handler struct {

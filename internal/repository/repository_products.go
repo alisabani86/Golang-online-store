@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
-	"server/internal/presentation"
+	"online_store/internal/presentation"
 	"strings"
 )
 

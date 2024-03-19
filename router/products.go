@@ -3,8 +3,8 @@ package router
 import (
 	"encoding/json"
 	"net/http"
-	"server/internal/presentation"
-	"server/pkg"
+	"online_store/internal/presentation"
+	"online_store/pkg"
 	"strconv"
 	"time"
 

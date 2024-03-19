@@ -2,15 +2,23 @@ package main
 
 import (
 	"log"
-	"server/db"
-	"server/internal/middleware"
-	"server/internal/repository"
-	"server/internal/service"
+	"online_store/db"
+	"online_store/internal/middleware"
+	"online_store/internal/repository"
+	"online_store/internal/service"
+	"os"
 
-	router "server/router"
+	router "online_store/router"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	dbConn, err := db.NewDatabase()
 	if err != nil {
 		log.Fatalf("could not initialize database conection: %s", err)
@@ -25,6 +33,9 @@ func main() {
 	Handler := router.NewHandler(Svc, middleware)
 
 	router.InitRouter(Handler)
-	router.Start("0.0.0.0:8080")
+	HOST := os.Getenv("HOST")
+	PORT := os.Getenv("PORT")
+
+	router.Start(HOST + ":" + PORT)
 
 }

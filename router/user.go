@@ -2,7 +2,7 @@ package router
 
 import (
 	"net/http"
-	"server/internal/presentation"
+	"online_store/internal/presentation"
 
 	"github.com/gin-gonic/gin"
 )
